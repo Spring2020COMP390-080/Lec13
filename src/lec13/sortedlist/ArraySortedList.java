@@ -23,18 +23,17 @@ public class ArraySortedList<T extends Comparable<T>> implements SortedList<T> {
 			return 0;
 		}
 
-		if (_size == 1) {
-			if (element.compareTo(get(0)) <= 0) {
-				return 0;
-			} else {
-				return 1;
-			}
+		if (element.compareTo(get(0)) <= 0) {
+			return 0;
+		}
+		
+		if (element.compareTo(get(size()-1)) > 0) {
+			return size();
 		}
 		
 		int low = 0;
 		int high = size()-1;
-		
-		
+				
 		while (low < high) {
 			int mid = (low+high) / 2;
 			if (element.compareTo(get(mid)) < 0) {
@@ -68,6 +67,8 @@ public class ArraySortedList<T extends Comparable<T>> implements SortedList<T> {
 
 	@Override
 	public void add(T element) {
+		// Resize if necessary
+		
 		if (_size == _elements.length) {
 			T[] resized_elements = (T[]) new Object[_elements.length*2];
 			for (int i=0; i<_size; i++) {
